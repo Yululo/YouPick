@@ -1,0 +1,19 @@
+{
+  "name": "youpick",
+  "version": "1.0.0",
+  "description": "An app that pick a restaurant for you based on your preferences and location",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yululo/YouPick.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yululo/YouPick/issues"
+  },
+  "homepage": "https://github.com/Yululo/YouPick#readme"
+}
