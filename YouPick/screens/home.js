@@ -15,4 +15,12 @@ import {
 } from 'react-native';
 import { SCREENS } from "../constants";
 
-function HomePage
+function HomePage(props){
+    return(
+        <View>
+          <Text> Welcome to YouPick. </Text>
+        </View>
+    )
+}
+
+export default HomePage;
