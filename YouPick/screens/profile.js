@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -12,18 +12,53 @@ import {
   RefreshControl,
   AsyncStorage,
   Image
-} from 'react-native';
+} from "react-native";
 import { SCREENS } from "../constants";
+import MultiSelect from 'react-native-multiple-select';
 
-function Home(props){
-    return(
-        <View style = {styles.container}>
-          <Text style = {styles.title}>Go to your first restaurant!</Text>
+function Profile(props) {
+  let data = [{id: 1, name: 'Italian'}, {id: 2, name:'Chinese'}, {id: 3, name:'American'}];
+  const [selectedItems, setSelectedItems] = useState([]);
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={{ alignItems: "center" }}>
+        <Text style={{ fontSize: 30, fontFamily: "Courier New" }}>
+          Complete your profile!
+        </Text>
+        <Text> </Text>
+      </View>
+      <View style={{ display: "flex" }}>
+        <Text style={styles.info}>Username here </Text>
+        <Text> </Text>
+        <Text style={styles.info}>Email here</Text>
+        <View style={{ float: "right" }}>
+          <Image
+            source={{
+              uri:
+                "https://www.himgs.com/imagenes/hello/social/hello-fb-logo.png"
+            }}
+            style={{ width: 100, height: 100 }}
+          />
         </View>
-    )
+      </View>
+      <Text> </Text>
+      <Text style={styles.info}> What food do you like?</Text>
+      <MultiSelect
+        style={{ flex: 1 }}
+        bgColor={"white"}
+        tintColor={"#666666"}
+        activityTintColor={"green"}
+        items = {data}
+        uniqueKey = "id"
+      />
+      <View>
+
+      </View>
+    </View>
+  );
 }
 
-export default Home;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +88,9 @@ const styles = StyleSheet.create({
     height: 40,
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: "black"
   },
   users: {
     borderColor: "black",
@@ -99,5 +136,9 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 10
+  },
+  info: {
+    fontFamily: "Courier New",
+    fontSize: 20
   }
 });

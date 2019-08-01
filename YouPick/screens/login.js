@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -33,7 +33,7 @@ class Login extends Component {
       alert("Please enter username and password!");
       return;
     }
-    fetch("https://hohoho-backend.herokuapp.com/login", {
+    fetch("https://localhost:3000/db/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -109,7 +109,7 @@ class Login extends Component {
 
         <TouchableOpacity
           onPress={() => this.login(this.state.username, this.state.password)}
-          style={styles.buttonRed}
+          style={styles.buttonGrey}
         >
           <Text style={styles.buttonText}> Log In </Text>
         </TouchableOpacity>
@@ -184,6 +184,13 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 5,
     backgroundColor: "red"
+  },
+  buttonGrey: {
+    alignSelf: "stretch",
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    backgroundColor: "grey"
   },
   text: {
     marginLeft: 10
