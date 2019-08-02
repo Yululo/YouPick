@@ -32,7 +32,7 @@ class Register extends Component {
       alert("Please enter username and password!");
       return;
     }
-    fetch("https://localhost:3000/db/register", {
+    fetch("http://localhost:3000/db/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -48,7 +48,7 @@ class Register extends Component {
       .then(responseJson => {
         /* do something with responseJson and go back to the Login view but
          * make sure to check for responseJson.success! */
-        // console.log("json", responseJson);
+        console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
           this.props.navigation.navigate("LogIn");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -14,48 +14,119 @@ import {
   Image
 } from "react-native";
 import { SCREENS } from "../constants";
-import MultiSelect from 'react-native-multiple-select';
+import MultiSelect from "react-native-multiple-select";
 
-function Profile(props) {
-  let data = [{id: 1, name: 'Italian'}, {id: 2, name:'Chinese'}, {id: 3, name:'American'}];
-  const [selectedItems, setSelectedItems] = useState([]);
-  return (
-    <View style={{ flex: 1 }}>
-      <View style={{ alignItems: "center" }}>
-        <Text style={{ fontSize: 30, fontFamily: "Courier New" }}>
-          Complete your profile!
-        </Text>
-        <Text> </Text>
-      </View>
-      <View style={{ display: "flex" }}>
-        <Text style={styles.info}>Username here </Text>
-        <Text> </Text>
-        <Text style={styles.info}>Email here</Text>
-        <View style={{ float: "right" }}>
-          <Image
-            source={{
-              uri:
-                "https://www.himgs.com/imagenes/hello/social/hello-fb-logo.png"
-            }}
-            style={{ width: 100, height: 100 }}
-          />
+class Profile extends Component {
+  static navigationOptions = props => ({
+    title: "Profile"
+  });
+  constructor(props) {
+    super(props);
+    this.state = {
+      likedCuisines: []
+    };
+  }
+
+  onSelectedItemsChange = selectedItems => {
+    this.setState({ selectedItems });
+  };
+
+  render() {
+    let cuisines = [
+      { id: 1, name: "Italian" },
+      { id: 2, name: "Chinese" },
+      { id: 3, name: "American" }
+    ];
+    let prices = [
+      { id: 1, name: "$" },
+      { id: 2, name: "$$" },
+      { id: 3, name: "$$$" },
+      { id: 4, name: "$$$$" }
+    ];
+    let restrictions = [
+      { id: 1, name: "None" },
+      { id: 2, name: "Vegetarian" },
+      { id: 3, name: "Vegan" },
+      { id: 4, name: "Pescatarian" },
+      { id: 5, name: "Gluten Free" },
+
+    ];
+
+    return (
+      <ScrollView>
+      <View style={{ flex: 1 }}>
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ fontSize: 30, fontFamily: "Courier New" }}>
+            Complete your profile!
+          </Text>
+          <Text> </Text>
         </View>
+        <View style={{ display: "flex" }}>
+          <Text style={styles.info}>Username here </Text>
+          <Text> </Text>
+          <Text style={styles.info}>Email here</Text>
+          <View style={{ float: "right" }}>
+            <Image
+              source={{
+                uri:
+                  "https://www.himgs.com/imagenes/hello/social/hello-fb-logo.png"
+              }}
+              style={{ width: 100, height: 100 }}
+            />
+          </View>
+        </View>
+        <Text> </Text>
+        <Text style={styles.info}>What food do you like?</Text>
+        <MultiSelect
+          style={{ flex: 1 }}
+          bgColor={"white"}
+          tintColor={"#666666"}
+          activityTintColor={"green"}
+          items={cuisines}
+          uniqueKey="id"
+          onSelectedItemsChange={this.onSelectedItemsChange}
+          selectedItems={this.state.likedCuisines}
+        />
+        <Text> </Text>
+        <Text style={styles.info}>What food are you open to trying? </Text>
+        <MultiSelect
+          style={{ flex: 1 }}
+          bgColor={"white"}
+          tintColor={"#666666"}
+          activityTintColor={"green"}
+          items={cuisines}
+          uniqueKey="id"
+          onSelectedItemsChange={this.onSelectedItemsChange}
+          selectedItems={this.state.selectedItems}
+        />
+        <Text> </Text>
+        <Text style={styles.info}>Any dietary restrictions? </Text>
+        <MultiSelect
+          style={{ flex: 1 }}
+          bgColor={"white"}
+          tintColor={"#666666"}
+          activityTintColor={"green"}
+          items={restrictions}
+          uniqueKey="id"
+          onSelectedItemsChange={this.onSelectedItemsChange}
+          selectedItems={this.state.selectedItems}
+        />
+        <Text> </Text>
+        <Text style={styles.info}>What price range are you looking for? </Text>
+        <MultiSelect
+          style={{ flex: 1 }}
+          bgColor={"white"}
+          tintColor={"#666666"}
+          activityTintColor={"green"}
+          items={prices}
+          uniqueKey="id"
+          onSelectedItemsChange={this.onSelectedItemsChange}
+          selectedItems={this.state.selectedItems}
+        />
       </View>
-      <Text> </Text>
-      <Text style={styles.info}> What food do you like?</Text>
-      <MultiSelect
-        style={{ flex: 1 }}
-        bgColor={"white"}
-        tintColor={"#666666"}
-        activityTintColor={"green"}
-        items = {data}
-        uniqueKey = "id"
-      />
-      <View>
-
-      </View>
-    </View>
-  );
+      </ScrollView>
+    );
+  }
 }
 
 export default Profile;
@@ -66,7 +137,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    margin: 5
   },
 
   buttons: {
