@@ -89,24 +89,17 @@ class SetProfile extends Component {
         /* do something with responseJson and go back to the Login view but
          * make sure to check for responseJson.success! */
         // console.log("json", responseJson);
+
+
       })
       .catch(err => {
-        console.log("set Profile", err);
+        console.log("set Profile", err)
         alert(err);
       });
-    this.props.navigation.navigate(SCREENS.LOGIN);
-  };
-
-  componentDidMount() {
-    AsyncStorage.getItem("user").then(result => {
-      if (result === null) {
-        return;
-      }
-      var parsedResult = JSON.parse(result);
-      console.log("HERE", parsedResult);
-      this.setState({ username: parsedResult.username });
-    });
+        this.props.navigation.navigate(SCREENS.LOGIN)
   }
+
+
 
   render() {
     let isCompleted = true;
@@ -120,9 +113,35 @@ class SetProfile extends Component {
       isCompleted = false;
     }
     let cuisines = [
-      { id: 1, name: "Italian" },
-      { id: 2, name: "Chinese" },
-      { id: 3, name: "American" }
+      { id: 55, name: "Italian" },
+      { id: 25, name: "Chinese" },
+      { id: 168, name: "Burger" },
+      { id: 159, name: "Brazilian" },
+      {id: 247, name: "Bubble Tea"},
+      {id: 152, name: "African"},
+      {id: 193, name: "BBQ"},
+      {id: 182, name: "Breakfast"},
+      {id: 30, name: "Cafe"},
+      {id: 158, name: "Caribbean"},
+      {id: 100, name: "Desserts"},
+      { id: 67, name: "Korean" },
+      { id: 136, name: "Latin American" },
+      { id: 70, name: "Mediterranean" },
+      { id: 73, name: "Mexican" },
+      { id: 60, name: "Japanese" },
+      { id: 143, name: "Healthy Food" },
+      { id: 45, name: "French" },
+      { id: 541, name: "Diner" },
+      { id: 218, name: "Israeli" },
+      { id: 82, name: "Pizza" },
+      { id: 320, name: "Ramen" },
+      { id: 998, name: "Salad" },
+      { id: 304, name: "Sandwich" },
+      { id: 83, name: "Seafood" },
+      { id: 461, name: "Soulfood" },
+      { id: 471, name: "Southern" },
+      { id: 177, name: "Sushi" },
+      { id: 997, name: "Taco" },
     ];
     let prices = [
       { id: 1, name: "$" },
@@ -138,6 +157,14 @@ class SetProfile extends Component {
       { id: 5, name: "Gluten Free" }
     ];
 
+    AsyncStorage.getItem("user").then(result => {
+      if (result === null) {
+        return;
+      }
+      var parsedResult = JSON.parse(result);
+      console.log(parsedResult)
+      this.setState({ username: parsedResult.username });
+    });
     return (
       // <ImageBackground
       //   source={require("../assets/youpick-bg.png")}
@@ -148,7 +175,7 @@ class SetProfile extends Component {
         <View style={styles.container}>
           <View style={{ alignItems: "center" }}>
             {isCompleted ? (
-              <Text />
+              <Text></Text>
             ) : (
               <Text style={{ fontSize: 20, color: "white" }}>
                 ~Complete your profile!~
@@ -254,7 +281,7 @@ class SetProfile extends Component {
               <Text style={styles.buttonText}> DONE </Text>
             </TouchableOpacity>
           ) : (
-            <Text />
+            <Text></Text>
           )}
         </View>
       </ScrollView>
