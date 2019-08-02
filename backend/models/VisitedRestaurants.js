@@ -15,6 +15,9 @@ const visitedRestaurantsSchema = new mongoose.Schema({
   }
 });
 
-const VisitedRestaurants = mongoose.model("User", visitedRestaurantsSchema);
+const VisitedRestaurants = mongoose.model(
+  "VisitedRestaurants",
+  visitedRestaurantsSchema
+);
 
 module.exports = VisitedRestaurants;
