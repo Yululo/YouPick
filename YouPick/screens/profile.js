@@ -204,9 +204,10 @@ class Profile extends Component {
             tagBorderColor="#CCC"
             tagTextColor="#CCC"
           />
-          <TouchableOpacity style = {styles.buttonGrey} onPress = {() => this.props.navigation.navigate(SCREENS.HOME)}>
+          {isCompleted ? (<TouchableOpacity style = {styles.buttonGrey} onPress = {() => this.props.navigation.navigate(SCREENS.HOME)}>
             <Text style = {styles.buttonText}> DONE </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> ): (<Text></Text>)}
+
         </View>
 
       </ScrollView>
