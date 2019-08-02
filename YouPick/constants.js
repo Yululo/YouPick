@@ -4,6 +4,5 @@ export const SCREENS = {
  HOME: "Home",
  SETPROFILE: "SetProfile",
  VIEWPROFILE: "ViewProfile"
- SETPROFILE: "SetProfile"
  PICK: "Pick"
 };
