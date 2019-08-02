@@ -33,7 +33,7 @@ class Login extends Component {
       alert("Please enter username and password!");
       return;
     }
-    fetch("https://localhost:3000/db/login", {
+    fetch("https://192.168.1.59:3000/db/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
