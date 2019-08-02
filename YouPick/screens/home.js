@@ -17,7 +17,25 @@ import {
 import { SCREENS } from "../constants";
 
 function Home(props) {
+<<<<<<< HEAD
 
+=======
+  Home.navigationOptions = {
+    title: "Home",
+    headerRight: (
+      <Button
+        title="View Profile"
+        onPress={() => props.navigation.navigate(SCREENS.PROFILE)}
+      />
+    ),
+    headerLeft: (
+      <Button
+        title="Log Out"
+        onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
+      />
+    )
+  };
+>>>>>>> ca04f4ea255f08e03d0aa14e93c9b48762f084fc
   return (
     <ImageBackground
       source={require("../assets/youpick-bg.png")}
@@ -25,6 +43,14 @@ function Home(props) {
       style={{ width: "100%", height: "100%", flex: 1 }}
     >
       <View style={styles.container}>
+<<<<<<< HEAD
+=======
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate(SCREENS.PICK)}
+        >
+          <Text>Pick</Text>
+        </TouchableOpacity>
+>>>>>>> ca04f4ea255f08e03d0aa14e93c9b48762f084fc
         <Text style={styles.title}>Go to your first restaurant!</Text>
       </View>
     </ImageBackground>
@@ -71,9 +97,19 @@ Home.navigationOptions = props => ({
       onPress={() => props.navigation.navigate(SCREENS.VIEWPROFILE)}
     />
   ),
+<<<<<<< HEAD
   headerLeft: (<Button title="Log Out" onPress={() => logOut()} />)
 });
 
+=======
+  headerLeft: (
+    <Button
+      title="Log Out"
+      onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
+    />
+  )
+});
+>>>>>>> ca04f4ea255f08e03d0aa14e93c9b48762f084fc
 
 export default Home;
 
