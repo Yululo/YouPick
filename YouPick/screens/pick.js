@@ -16,8 +16,6 @@ import {
 } from "react-native";
 import { SCREENS } from "../constants";
 
-// search the restaurant based on the given city
-
 class Pick extends React.Component {
   constructor(props) {
     super(props);
@@ -28,69 +26,64 @@ class Pick extends React.Component {
     this.restaurants = [];
   }
 
+  // search the restaurant based on the given city
   async search() {
-    const req1 = fetch(
-      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "user-key": "edf93ee64341e71e145d65045b494dde"
-        }
-      }
-    ).then(res => res.json());
-    const req2 = fetch(
-      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=20&count=20",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "user-key": "edf93ee64341e71e145d65045b494dde"
-        }
-      }
-    ).then(res => res.json());
-    const req3 = fetch(
-      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=40&count=20",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "user-key": "edf93ee64341e71e145d65045b494dde"
-        }
-      }
-    ).then(res => res.json());
-    const req4 = fetch(
-      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=60&count=20",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "user-key": "edf93ee64341e71e145d65045b494dde"
-        }
-      }
-    ).then(res => res.json());
-    const req5 = fetch(
-      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=80&count=20",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "user-key": "edf93ee64341e71e145d65045b494dde"
-        }
-      }
-    ).then(res => res.json());
-
-    const [data1, data2, data3, data4, data5] = await Promise.all([
-      req1,
-      req2,
-      req3,
-      req4,
-      req5
-    ]);
-
-    this.restaurants = [...data1, ...data2, ...data3, ...data4, ...data5];
-    console.log(this.restaurants);
-
+    await this.currentLocation();
+    Promise.all([
+      client.search({
+        query: "koreatown",
+        lat: this.state.region.latitude,
+        lon: this.state.region.longitude,
+        count: 20,
+        cuisines: [55, 159, 182, 168, 121]
+      }),
+      client.search({
+        query: "koreatown",
+        lat: this.state.region.latitude,
+        lon: this.state.region.longitude,
+        count: 20,
+        start: 20,
+        cuisines: [55, 159, 182, 168, 121]
+      }),
+      client.search({
+        query: "koreatown",
+        lat: this.state.region.latitude,
+        lon: this.state.region.longitude,
+        count: 20,
+        start: 40,
+        cuisines: [55, 159, 182, 168, 121]
+      }),
+      client.search({
+        query: "koreatown",
+        lat: this.state.region.latitude,
+        lon: this.state.region.longitude,
+        count: 20,
+        start: 60,
+        cuisines: [55, 159, 182, 168, 121]
+      }),
+      client.search({
+        query: "koreatown",
+        lat: this.state.region.latitude,
+        lon: this.state.region.longitude,
+        count: 20,
+        start: 80,
+        cuisines: [55, 159, 182, 168, 121]
+      })
+    ]).then(([res1, res2, res3, res4, res5]) => {
+      // console.log(
+      //   "RESTAURANTS",
+      //   res.restaurants,
+      //   "restaurant length ",
+      //   res.restaurants.length
+      // )
+      this.restaurants = [
+        ...res1.restaurants,
+        ...res2.restaurants,
+        ...res3.restaurants,
+        ...res4.restaurants,
+        ...res5.restaurants
+      ];
+    });
     // console.log(data1.results_shown);
     // console.log(JSON.stringify(data1.restaurants[19], null, 2));
     // console.log(data2.results_shown);

@@ -61,7 +61,7 @@ async function logOut(props) {
       }
     })
     .catch(err => {
-      console.log("from fetch", err);
+      // console.log("from fetch", err);
       alert(err);
     });
   AsyncStorage.setItem("user", "");
