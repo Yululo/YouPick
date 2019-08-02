@@ -15,6 +15,9 @@ import {
   ImageBackground
 } from "react-native";
 import { SCREENS } from "../constants";
+import Contacts from "expo-constants";
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 
 // search the restaurant based on the given city
 
@@ -22,13 +25,40 @@ class Pick extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: []
+      dataSource: [],
+      region: {
+        latitude: null,
+        longitude: null
+      }
     };
     this.first = true;
     this.restaurants = [];
   }
 
+  async currentLocation() {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    console.log("got current position", location);
+    await this.setState({
+      region: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      }
+    });
+    console.log("My location: ", this.state.region);
+  }
+
   async search() {
+    this.currentLocation();
+    // console.log(
+    //   "My location: ",
+    //   this.state.region.latitude,
+    //   this.state.region.longitude
+    // );
     const req1 = fetch(
       "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city",
       {
