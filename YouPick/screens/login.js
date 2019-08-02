@@ -50,6 +50,13 @@ class Login extends Component {
         // console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
+          AsyncStorage.setItem(
+            "user",
+            JSON.stringify({
+              username: this.state.username,
+              password: this.state.password
+            })
+          );
           this.props.navigation.navigate(SCREENS.HOME);
         } else {
           this.setState({ message: "Incorrect credentials!!" }).bind(this);

@@ -29,7 +29,7 @@ function Home(props) {
           onPress={() => props.navigation.navigate(SCREENS.PICK)}
           style={styles.buttonGrey}
         >
-          <Text style={styles.buttonText}>Pick</Text>
+          <Text style={styles.buttonText}>Choose a Restaurant</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -61,7 +61,7 @@ async function logOut(props) {
       }
     })
     .catch(err => {
-      console.log("from fetch", err);
+      // console.log("from fetch", err);
       alert(err);
     });
   AsyncStorage.setItem("user", "");

@@ -12,8 +12,10 @@ import {
   RefreshControl,
   AsyncStorage,
   Image,
-  ImageBackground
+  ImageBackground,
+  FlatList
 } from "react-native";
+import { List, ListItem } from "react-native-elements";
 import { SCREENS } from "../constants";
 import MultiSelect from "react-native-multiple-select";
 import * as Permissions from "expo-permissions";
@@ -23,13 +25,272 @@ class ViewProfile extends Component {
   static navigationOptions = props => ({
     title: "Profile"
   });
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      imageUri: "",
+      likedCuisines: [
+        { id: 55, name: "Italian" },
+        { id: 25, name: "Chinese" },
+        { id: 168, name: "Burger" },
+        { id: 159, name: "Brazilian" },
+        { id: 247, name: "Bubble Tea" },
+        { id: 152, name: "African" }
+      ],
+      openToTry: [],
+      priceRange: [],
+      restrictions: []
+    };
+  }
 
-  render(){
-    return(
-      <View>
-        <Text> YEAHHHH </Text>
-      </View>
-    )
+  render() {
+    const column1Data1 = this.state.likedCuisines.filter(
+      (item, i) => i % 2 === 0
+    );
+    const column2Data1 = this.state.likedCuisines.filter(
+      (item, i) => i % 2 === 1
+    );
+
+    const column1Data2 = this.state.openToTry.filter((item, i) => i % 2 === 0);
+    const column2Data2 = this.state.openToTry.filter((item, i) => i % 2 === 1);
+
+    const column1Data3 = this.state.priceRange.filter((item, i) => i % 2 === 0);
+    const column2Data3 = this.state.priceRange.filter((item, i) => i % 2 === 1);
+
+    const column1Data4 = this.state.restrictions.filter(
+      (item, i) => i % 2 === 0
+    );
+    const column2Data4 = this.state.restrictions.filter(
+      (item, i) => i % 2 === 1
+    );
+    return (
+      <ScrollView style={{ backgroundColor: "#a2444b" }}>
+        <View style={styles.container}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignContent: "center"
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+                fontWeight: "bold",
+                alignSelf: "center"
+              }}
+            >
+              Welcome, {this.state.username}{" "}
+            </Text>
+            <Image
+              source={{
+                uri: this.state.imageUri
+              }}
+              style={{ width: 100, height: 100 }}
+            />
+          </View>
+          <Text style={styles.info}> Foods I Like: </Text>
+          <View
+            style={{
+              padding: 10,
+              alignItems: "center",
+              flex: 1,
+              flexDirection: "row"
+            }}
+          >
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column1Data1.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column2Data1.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+          </View>
+
+          <Text style={styles.info}> Foods I'm Willing To Try: </Text>
+          <View
+            style={{
+              padding: 10,
+              alignItems: "center",
+              flex: 1,
+              flexDirection: "row"
+            }}
+          >
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column1Data2.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column2Data2.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+            <Text></Text>
+          </View>
+
+          <Text style={styles.info}> My Dietary Restrictions: </Text>
+          <View
+            style={{
+              padding: 10,
+              alignItems: "center",
+              flex: 1,
+              flexDirection: "row"
+            }}
+          >
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column1Data4.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column2Data4.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+            <Text></Text>
+          </View>
+
+          <Text style={styles.info}> My Price Range: </Text>
+          <View
+            style={{
+              padding: 10,
+              alignItems: "center",
+              flex: 1,
+              flexDirection: "row"
+            }}
+          >
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column1Data3.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              {column2Data3.map(l => (
+                <ListItem
+                  key={l.id}
+                  title={l.name}
+                  titleStyle={{ color: "white" }}
+                  containerStyle={{
+                    backgroundColor: "#a2444b",
+                    height: 50,
+                    width: 150
+                  }}
+                  style={{
+                    borderColor: "white",
+                    borderWidth: 0.5,
+                    textAlign: "center"
+                  }}
+                />
+              ))}
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    );
   }
 }
 
