@@ -27,8 +27,9 @@ function Home(props) {
         <Text style={styles.title}>Go to your first restaurant!</Text>
         <TouchableOpacity
           onPress={() => props.navigation.navigate(SCREENS.PICK)}
+          style = {styles.buttonGrey}
         >
-          <Text>Pick</Text>
+          <Text style = {styles.buttonText}>Pick</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

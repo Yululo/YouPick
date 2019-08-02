@@ -3,6 +3,6 @@ export const SCREENS = {
  REGISTER: "Register",
  HOME: "Home",
  SETPROFILE: "SetProfile",
- VIEWPROFILE: "ViewProfile"
+ VIEWPROFILE: "ViewProfile",
  PICK: "Pick"
 };

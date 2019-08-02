@@ -93,6 +93,7 @@ class SetProfile extends Component {
 
       })
       .catch(err => {
+        console.log("set Profile", err)
         alert(err);
       });
         this.props.navigation.navigate(SCREENS.LOGIN)
@@ -135,6 +136,7 @@ class SetProfile extends Component {
         return;
       }
       var parsedResult = JSON.parse(result);
+      console.log(parsedResult)
       this.setState({ username: parsedResult.username });
     });
     return (
@@ -248,7 +250,7 @@ class SetProfile extends Component {
           {isCompleted ? (
             <TouchableOpacity
               style={styles.buttonGrey}
-              onPress={() => sendData()}
+              onPress={() => this.sendData()}
             >
               <Text style={styles.buttonText}> DONE </Text>
             </TouchableOpacity>

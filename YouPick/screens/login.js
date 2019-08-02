@@ -17,7 +17,7 @@ import {
 import { SCREENS } from "../constants";
 
 class Login extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -51,13 +51,6 @@ class Login extends Component {
         // console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
-          AsyncStorage.setItem(
-            "user",
-            JSON.stringify({
-              username: username,
-              password: password
-            })
-          );
           this.props.navigation.navigate(SCREENS.HOME);
         } else {
           this.setState({ message: "Incorrect credentials!!" }).bind(this);

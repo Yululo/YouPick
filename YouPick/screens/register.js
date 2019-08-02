@@ -46,10 +46,17 @@ class Register extends Component {
       .then(responseJson => {
         /* do something with responseJson and go back to the Login view but
          * make sure to check for responseJson.success! */
-        console.log("json", responseJson);
+        // console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
-          this.props.navigation.navigate(SCREENS.PROFILE);
+          AsyncStorage.setItem(
+            "user",
+            JSON.stringify({
+              username: this.state.username,
+              password: this.state.password
+            })
+          );
+          this.props.navigation.navigate(SCREENS.SETPROFILE);
         }
       })
       .catch(err => {
