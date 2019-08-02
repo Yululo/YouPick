@@ -5,6 +5,11 @@ let bodyParser = require("body-parser");
 const dbRoutes = require("./routes/databaseAccess.js");
 
 app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 
 //need to require db routes
 
