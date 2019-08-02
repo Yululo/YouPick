@@ -17,21 +17,7 @@ import {
 import { SCREENS } from "../constants";
 
 function Home(props){
-  Home.navigationOptions = {
-    title: "Home",
-    headerRight: (
-      <Button
-        title="View Profile"
-        onPress={() => props.navigation.navigate(SCREENS.PROFILE)}
-      />
-    ),
-    headerLeft: (
-      <Button
-        title="Log Out"
-        onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
-      />
-    )
-  }
+
     return(
       <ImageBackground
         source={require("../assets/youpick-bg.png")}
@@ -44,6 +30,21 @@ function Home(props){
       </ImageBackground>
     )
 }
+Home.navigationOptions = props => ({
+  title: "Home",
+  headerRight: (
+    <Button
+      title="View Profile"
+      onPress={() => props.navigation.navigate(SCREENS.PROFILE)}
+    />
+  ),
+  headerLeft: (
+    <Button
+      title="Log Out"
+      onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
+    />
+  )
+})
 
 export default Home;
 

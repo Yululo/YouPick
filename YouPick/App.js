@@ -1,20 +1,28 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
 import {
- Login,
- Register,
- Home,
- Profile
-} from "./screens";
+  createSwitchNavigator,
+  createStackNavigator,
+  createAppContainer
+} from "react-navigation";
+import { Login, Register, Home, Profile } from "./screens";
 import { SCREENS } from "./constants";
 
+const AuthNavigator = createStackNavigator(
+  {
+    Login: Login,
+    Register: Register
+  },
+  { initialRouteName: SCREENS.LOGIN }
+);
 const Navigator = createStackNavigator({
   Home: Home,
-  Login: Login ,
-  Register: Register,
   Profile: Profile
 },
-{ initialRouteName: SCREENS.PROFILE});
+{ initialRouteName: SCREENS.HOME});
 
-
-
-export default createAppContainer(Navigator);
+export default createAppContainer(
+  createSwitchNavigator({
+    auth: AuthNavigator,
+    app: Navigator
+  },
+  { initialRouteName: "auth"})
+);

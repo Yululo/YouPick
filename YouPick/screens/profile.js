@@ -31,7 +31,8 @@ class Profile extends Component {
       openToTry: [],
       priceRange: [],
       restrictions: [],
-      username: ""
+      username: "",
+      imageUri: ""
     };
   }
 
@@ -59,12 +60,12 @@ class Profile extends Component {
       // allowsEditing: true,
       // aspect: [4, 3]
     });
-    // console.log("picture", picture)
-    // console.log("picture uri", picture.uri)
+    console.log("picture", picture)
+    console.log("picture uri", picture.uri)
     if (picture.cancelled) {
       return;
     }
-    console.log(picture.uri)
+    this.setState({imageUri: picture.uri})
   };
 
   render() {
@@ -128,21 +129,18 @@ class Profile extends Component {
               alignContent: "center"
             }}
           >
-            <Text style={{ color: "white", fontSize: 20 }}>
-              {" "}
-              <Text style={{ fontWeight: "bold" }}>
-                {" "}
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", alignSelf: "center"  }}>
                 Welcome, {this.state.username}{" "}
-              </Text>
             </Text>
+            <TouchableOpacity onPress = {() => this.chooseImage()}>
             <Image
               source={{
                 uri:
-                  "https://miro.medium.com/max/480/1*DSNfSDcOe33E2Aup1Sww2w.jpeg"
+                  this.state.imageUri || "https://miro.medium.com/max/480/1*DSNfSDcOe33E2Aup1Sww2w.jpeg"
               }}
               style={{ width: 100, height: 100 }}
-              onPress = {this.chooseImage}
             />
+            </TouchableOpacity>
           </View>
           <Text> </Text>
           <Text style={styles.info}>What food do you like?</Text>
@@ -206,7 +204,11 @@ class Profile extends Component {
             tagBorderColor="#CCC"
             tagTextColor="#CCC"
           />
+          <TouchableOpacity style = {styles.buttonGrey} onPress = {() => this.props.navigation.navigate(SCREENS.HOME)}>
+            <Text style = {styles.buttonText}> DONE </Text>
+          </TouchableOpacity>
         </View>
+
       </ScrollView>
       // </ImageBackground>
     );
