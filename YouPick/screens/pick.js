@@ -49,11 +49,52 @@ class Pick extends React.Component {
         }
       }
     ).then(res => res.json());
-    const [data1, data2] = await Promise.all([req1, req2]);
-    console.log(data1.results_shown);
-    console.log(JSON.stringify(data1.restaurants[19], null, 2));
-    console.log(data2.results_shown);
-    console.log(JSON.stringify(data2.restaurants[0], null, 2));
+    const req3 = fetch(
+      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=40&count=20",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-key": "edf93ee64341e71e145d65045b494dde"
+        }
+      }
+    ).then(res => res.json());
+    const req4 = fetch(
+      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=60&count=20",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-key": "edf93ee64341e71e145d65045b494dde"
+        }
+      }
+    ).then(res => res.json());
+    const req5 = fetch(
+      "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city&start=80&count=20",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "user-key": "edf93ee64341e71e145d65045b494dde"
+        }
+      }
+    ).then(res => res.json());
+
+    const [data1, data2, data3, data4, data5] = await Promise.all([
+      req1,
+      req2,
+      req3,
+      req4,
+      req5
+    ]);
+
+    this.restaurants = [...data1, ...data2, ...data3, ...data4, ...data5];
+    console.log(this.restaurants);
+
+    // console.log(data1.results_shown);
+    // console.log(JSON.stringify(data1.restaurants[19], null, 2));
+    // console.log(data2.results_shown);
+    // console.log(JSON.stringify(data2.restaurants[0], null, 2));
   }
 
   render() {
