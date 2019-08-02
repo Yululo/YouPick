@@ -1,5 +1,5 @@
 exports.User = require("./User");
-exports.VisitedRestraunts = require("./VisitedRestaurants");
+exports.VisitedRestaurants = require("./VisitedRestaurants");
 
 // const express = require("express");
 // const router = express.Router();
