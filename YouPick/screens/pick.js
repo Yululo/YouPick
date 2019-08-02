@@ -15,6 +15,10 @@ import {
   ImageBackground
 } from "react-native";
 import { SCREENS } from "../constants";
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
+import zomato from "zomato-api";
+var client = zomato({ userKey: "edf93ee64341e71e145d65045b494dde" });
 
 class Pick extends React.Component {
   constructor(props) {
@@ -98,14 +102,17 @@ class Pick extends React.Component {
         style={{ width: "100%", height: "100%", flex: 1 }}
       >
         <View style={styles.container}>
-        <TextInput
-           style={styles.input}
-           placeholder="Enter the area you want get restaurants from"
-           onChangeText={text => this.setState({ locationArea: text })}
-           value={this.state.locationArea}
-         />
-          <TouchableOpacity onPress={() => this.search()} style = {styles.buttonGrey}>
-            <Text style = {styles.buttonText}>Search</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter the area you want get restaurants from"
+            onChangeText={text => this.setState({ locationArea: text })}
+            value={this.state.locationArea}
+          />
+          <TouchableOpacity
+            onPress={() => this.search()}
+            style={styles.buttonGrey}
+          >
+            <Text style={styles.buttonText}>Search</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>

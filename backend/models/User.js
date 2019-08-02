@@ -9,6 +9,22 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  likedCuisines: {
+    type: Array,
+    required: false
+  },
+  priceRange: {
+    type: Array,
+    required: false
+  },
+  restrictions: {
+    type: Array,
+    required: false
+  },
+  imageUri: {
+    type: String,
+    required: false
   }
 });
 
