@@ -11,7 +11,8 @@ import {
   ScrollView,
   RefreshControl,
   AsyncStorage,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native';
 import { SCREENS } from "../constants";
 
@@ -21,8 +22,7 @@ class Register extends Component {
     super(props);
     this.state = {
       username: "",
-      password: "",
-      email: ""
+      password: ""
     };
   }
   register() {
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
     height: 40,
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   users: {
     borderColor: "black",

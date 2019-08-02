@@ -11,7 +11,8 @@ import {
   ScrollView,
   RefreshControl,
   AsyncStorage,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native';
 import { SCREENS } from "../constants";
 
@@ -60,7 +61,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     textAlign: "center",
-    fontFamily: "Courier New"
+    fontFamily: "Courier New",
+    color: "white",
+    fontWeight: "bold",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 1,
+    textShadowColor: '#000',
   },
 
   headers: {
