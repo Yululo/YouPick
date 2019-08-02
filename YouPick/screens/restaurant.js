@@ -30,14 +30,14 @@ class Restaurant extends Component {
     this.state = {
       info: ""
     };
-  render(){
-      return(
-        <View
-          <Text>The restaurant</Text>
-        </View>
-      )
   }
-}
+  render() {
+    return (
+      <View>
+        <Text>The restaurant</Text>
+      </View>
+    );
+  }
 }
 
 export default Restaurant;
