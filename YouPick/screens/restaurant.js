@@ -33,8 +33,8 @@ class Restaurant extends Component {
   }
   render() {
     return (
-      <View>
-        <Text>The restaurant</Text>
+      <View style = {styles.container}>
+      <Text style = {styles.title}> {this.props.navigation.getParam("restaurantToGo")} </Text>
       </View>
     );
   }
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#a2444b"
   },
 
   buttons: {
@@ -55,7 +56,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     textAlign: "center",
-    fontFamily: "Courier New"
+    fontFamily: "Courier New",
+    color: "white",
+    fontWeight: "bold",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 1,
+    textShadowColor: "#000"
   },
 
   headers: {

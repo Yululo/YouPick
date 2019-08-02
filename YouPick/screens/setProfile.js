@@ -27,7 +27,6 @@ class SetProfile extends Component {
     super(props);
     this.state = {
       likedCuisines: [],
-      openToTry: [],
       priceRange: [],
       restrictions: [],
       username: "",
@@ -37,9 +36,6 @@ class SetProfile extends Component {
 
   onSelectedItemsChange1 = selectedItems => {
     this.setState({ likedCuisines: selectedItems });
-  };
-  onSelectedItemsChange2 = selectedItems => {
-    this.setState({ openToTry: selectedItems });
   };
   onSelectedItemsChange3 = selectedItems => {
     this.setState({ priceRange: selectedItems });
@@ -60,7 +56,7 @@ class SetProfile extends Component {
       // aspect: [4, 3]
     });
     // console.log("picture", picture);
-    // console.log("picture uri", picture.uri);
+    console.log("picture uri", picture.uri);
     if (picture.cancelled) {
       return;
     }
@@ -75,7 +71,7 @@ class SetProfile extends Component {
       name: "profilePic.jpg"
     });
     fd.append("data", JSON.stringify(this.state));
-    fetch("http://192.168.1.59:3000/db/setProfile", {
+    fetch("http://192.168.1.23:3000/db/setProfile", {
       method: "POST",
       // headers: {
       //   "Content-Type": "application/json"
@@ -89,7 +85,7 @@ class SetProfile extends Component {
         /* do something with responseJson and go back to the Login view but
          * make sure to check for responseJson.success! */
         // console.log("json", responseJson);
-
+         console.log(responseJson)
 
       })
       .catch(err => {
@@ -105,7 +101,6 @@ class SetProfile extends Component {
     let isCompleted = true;
     if (
       this.state.likedCuisines.length === 0 ||
-      this.state.openToTry.length === 0 ||
       this.state.priceRange.length === 0 ||
       this.state.restrictions.length === 0 ||
       !this.state.imageUri
@@ -222,21 +217,6 @@ class SetProfile extends Component {
             uniqueKey="id"
             onSelectedItemsChange={this.onSelectedItemsChange1}
             selectedItems={this.state.likedCuisines}
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#CCC"
-          />
-          <Text> </Text>
-          <Text style={styles.info}>What food are you open to trying? </Text>
-          <MultiSelect
-            style={{ flex: 1 }}
-            bgColor={"white"}
-            tintColor={"#666666"}
-            activityTintColor={"green"}
-            items={cuisines}
-            uniqueKey="id"
-            onSelectedItemsChange={this.onSelectedItemsChange2}
-            selectedItems={this.state.openToTry}
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
             tagTextColor="#CCC"

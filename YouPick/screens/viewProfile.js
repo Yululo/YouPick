@@ -28,19 +28,15 @@ class ViewProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      imageUri: "",
+      username: "bob",
+      imageUri: "file:///var/mobile/Containers/Data/Application/5BF0B077-31AB-4FF4-B9A7-76AFC10A0CC3/Library/Caches/ExponentExperienceData/%2540anonymous%252FYouPick-2da262d4-ec2f-4f20-8a1f-d707f221523a/ImagePicker/7E5BF4F2-40D1-4656-B4DE-A0BAFA7A86E7.jpg",
       likedCuisines: [
         { id: 55, name: "Italian" },
-        { id: 25, name: "Chinese" },
-        { id: 168, name: "Burger" },
-        { id: 159, name: "Brazilian" },
-        { id: 247, name: "Bubble Tea" },
-        { id: 152, name: "African" }
+        { id: 25, name: "Chinese" }
       ],
-      openToTry: [],
-      priceRange: [],
-      restrictions: []
+      priceRange: [{ id: 1, name: "$" },
+      { id: 2, name: "$$" }],
+      restrictions: [{ id: 1, name: "None" }]
     };
   }
 
@@ -52,8 +48,8 @@ class ViewProfile extends Component {
       (item, i) => i % 2 === 1
     );
 
-    const column1Data2 = this.state.openToTry.filter((item, i) => i % 2 === 0);
-    const column2Data2 = this.state.openToTry.filter((item, i) => i % 2 === 1);
+    // const column1Data2 = this.state.openToTry.filter((item, i) => i % 2 === 0);
+    // const column2Data2 = this.state.openToTry.filter((item, i) => i % 2 === 1);
 
     const column1Data3 = this.state.priceRange.filter((item, i) => i % 2 === 0);
     const column2Data3 = this.state.priceRange.filter((item, i) => i % 2 === 1);
@@ -138,56 +134,6 @@ class ViewProfile extends Component {
                 />
               ))}
             </View>
-          </View>
-
-          <Text style={styles.info}> Foods I'm Willing To Try: </Text>
-          <View
-            style={{
-              padding: 10,
-              alignItems: "center",
-              flex: 1,
-              flexDirection: "row"
-            }}
-          >
-            <View style={{ flex: 1, flexDirection: "column" }}>
-              {column1Data2.map(l => (
-                <ListItem
-                  key={l.id}
-                  title={l.name}
-                  titleStyle={{ color: "white" }}
-                  containerStyle={{
-                    backgroundColor: "#a2444b",
-                    height: 50,
-                    width: 150
-                  }}
-                  style={{
-                    borderColor: "white",
-                    borderWidth: 0.5,
-                    textAlign: "center"
-                  }}
-                />
-              ))}
-            </View>
-            <View style={{ flex: 1, flexDirection: "column" }}>
-              {column2Data2.map(l => (
-                <ListItem
-                  key={l.id}
-                  title={l.name}
-                  titleStyle={{ color: "white" }}
-                  containerStyle={{
-                    backgroundColor: "#a2444b",
-                    height: 50,
-                    width: 150
-                  }}
-                  style={{
-                    borderColor: "white",
-                    borderWidth: 0.5,
-                    textAlign: "center"
-                  }}
-                />
-              ))}
-            </View>
-            <Text></Text>
           </View>
 
           <Text style={styles.info}> My Dietary Restrictions: </Text>
