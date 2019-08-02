@@ -24,10 +24,32 @@ class Pick extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: []
+      dataSource: [],
+      region: {
+        latitude: null,
+        longitude: null
+      },
+      locationArea: ""
     };
-    this.first = true;
     this.restaurants = [];
+    this.restaurantToGo ={}
+  }
+
+  async currentLocation() {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    // console.log("got current position", location);
+    await this.setState({
+      region: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      }
+    });
+    // console.log("My location: ", this.state.region);
   }
 
   // search the restaurant based on the given city
@@ -87,11 +109,29 @@ class Pick extends React.Component {
         ...res4.restaurants,
         ...res5.restaurants
       ];
+
+      let ranNum = Math.floor(Math.random() * 100);
+      // console.log(ranNum);
+      // let names = [];
+      // this.restaurants.forEach(restaurant =>
+      //   names.push(restaurant.restaurant.name)
+      // );
+      // console.log(
+      //   //   "restaurant length",
+      //   //   this.restaurants.length,
+      //   //   "one restaurant",
+      //   //   JSON.stringify(this.restaurants[20], null, 2),
+      //   // "one restaurant name",
+      //   // this.restaurants[ranNum].restaurant.name,
+      //   "names",
+      //   names,
+      //   "length",
+      //   names.length
+      // );
+
+      this.restaurantToGo = this.restaurants[ranNum].restaurant.name;
+      this.props.navigation.navigate(SCREENS.RESTAURANT, {restaurantToGo: this.restaurantToGo});
     });
-    // console.log(data1.results_shown);
-    // console.log(JSON.stringify(data1.restaurants[19], null, 2));
-    // console.log(data2.results_shown);
-    // console.log(JSON.stringify(data2.restaurants[0], null, 2));
   }
 
   render() {
@@ -148,7 +188,8 @@ const styles = StyleSheet.create({
     height: 40,
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   users: {
     borderColor: "black",

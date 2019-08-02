@@ -18,11 +18,7 @@ import { SCREENS } from "../constants";
 
 function Home(props) {
   return (
-    <ImageBackground
-      source={require("../assets/youpick-bg.png")}
-      resizeMode="cover"
-      style={{ width: "100%", height: "100%", flex: 1 }}
-    >
+  
       <View style={styles.container}>
         <Text style={styles.title}>Go to your first restaurant!</Text>
         <TouchableOpacity
@@ -32,7 +28,7 @@ function Home(props) {
           <Text style={styles.buttonText}>Choose a Restaurant</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+
   );
 }
 
@@ -84,7 +80,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#a2444b"
   },
 
   buttons: {
