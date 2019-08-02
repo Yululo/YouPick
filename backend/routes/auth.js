@@ -12,7 +12,7 @@ module.exports = function(passport, hash) {
     newUser
       .save()
       .then(response => {
-        res.json({ success: true });
+        res.json({ success: true, user: newUser });
       })
       .catch(error => {
         console.log("saveUser", error);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -11,11 +11,12 @@ import {
   ScrollView,
   RefreshControl,
   AsyncStorage,
-  Image
-} from 'react-native';
+  Image,
+  ImageBackground
+} from "react-native";
 import { SCREENS } from "../constants";
 
-function Home(props){
+function Home(props) {
   Home.navigationOptions = {
     title: "Home",
     headerRight: (
@@ -30,18 +31,23 @@ function Home(props){
         onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
       />
     )
-  }
-    return(
-      <ImageBackground
-        source={require("../assets/youpick-bg.png")}
-        resizeMode='cover'
-        style={{ width: "100%", height: "100%", flex:1 }}
-      >
-        <View style = {styles.container}>
-          <Text style = {styles.title}>Go to your first restaurant!</Text>
-        </View>
-      </ImageBackground>
-    )
+  };
+  return (
+    <ImageBackground
+      source={require("../assets/youpick-bg.png")}
+      resizeMode="cover"
+      style={{ width: "100%", height: "100%", flex: 1 }}
+    >
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate(SCREENS.PICK)}
+        >
+          <Text>Pick</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>Go to your first restaurant!</Text>
+      </View>
+    </ImageBackground>
+  );
 }
 
 export default Home;
