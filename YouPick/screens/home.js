@@ -16,10 +16,31 @@ import {
 import { SCREENS } from "../constants";
 
 function Home(props){
+  Home.navigationOptions = {
+    title: "Home",
+    headerRight: (
+      <Button
+        title="View Profile"
+        onPress={() => props.navigation.navigate(SCREENS.PROFILE)}
+      />
+    ),
+    headerLeft: (
+      <Button
+        title="Log Out"
+        onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
+      />
+    )
+  }
     return(
+      <ImageBackground
+        source={require("../assets/youpick-bg.png")}
+        resizeMode='cover'
+        style={{ width: "100%", height: "100%", flex:1 }}
+      >
         <View style = {styles.container}>
           <Text style = {styles.title}>Go to your first restaurant!</Text>
         </View>
+      </ImageBackground>
     )
 }
 
@@ -29,7 +50,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
   },

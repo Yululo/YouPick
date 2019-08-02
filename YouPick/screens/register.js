@@ -16,9 +16,7 @@ import {
 import { SCREENS } from "../constants";
 
 class Register extends Component {
-  static navigationOptions = props => ({
-    title: "Sign Up"
-  });
+
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +49,7 @@ class Register extends Component {
         console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
-          this.props.navigation.navigate("LogIn");
+          this.props.navigation.navigate(SCREENS.LOGIN);
         }
       })
       .catch(err => {
@@ -61,6 +59,11 @@ class Register extends Component {
 
   render() {
     return (
+      <ImageBackground
+        source={require("../assets/youpick-bg.png")}
+        resizeMode='cover'
+        style={{ width: "100%", height: "100%", flex:1 }}
+      >
       <View style={styles.container}>
         <TextInput
           style={styles.input}
@@ -82,6 +85,7 @@ class Register extends Component {
           <Text style={styles.buttonText}> Sign Up </Text>
         </TouchableOpacity>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -90,7 +94,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
   },

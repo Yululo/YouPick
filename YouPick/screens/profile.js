@@ -24,14 +24,23 @@ class Profile extends Component {
     super(props);
     this.state = {
       likedCuisines: [],
-      // openToTry: [],
-      // priceRange: [],
-      // restrictions: []
+      openToTry: [],
+      priceRange: [],
+      restrictions: []
     };
   }
 
-  onSelectedItemsChange = selectedItems => {
-    this.setState({ selectedItems });
+  onSelectedItemsChange1 = selectedItems => {
+    this.setState({ likedCuisines: selectedItems });
+  };
+  onSelectedItemsChange2 = selectedItems => {
+    this.setState({ openToTry: selectedItems });
+  };
+  onSelectedItemsChange3 = selectedItems => {
+    this.setState({ priceRange: selectedItems });
+  };
+  onSelectedItemsChange4 = selectedItems => {
+    this.setState({ restrictions: selectedItems });
   };
 
   render() {
@@ -51,83 +60,88 @@ class Profile extends Component {
       { id: 2, name: "Vegetarian" },
       { id: 3, name: "Vegan" },
       { id: 4, name: "Pescatarian" },
-      { id: 5, name: "Gluten Free" },
-
+      { id: 5, name: "Gluten Free" }
     ];
 
     return (
+      <ImageBackground
+        source={require("../assets/youpick-bg.png")}
+        resizeMode='cover'
+        style={{ width: "100%", height: "100%", flex:1 }}
+      >
       <ScrollView>
-      <View style={{ flex: 1 }}>
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ fontSize: 30, fontFamily: "Courier New" }}>
-            Complete your profile!
-          </Text>
-          <Text> </Text>
-        </View>
         <View style={{ display: "flex" }}>
-          <Text style={styles.info}>Username here </Text>
-          <Text> </Text>
-          <Text style={styles.info}>Email here</Text>
-          <View style={{ float: "right" }}>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ fontSize: 30 }}>Complete your profile!</Text>
+            <Text> </Text>
+          </View>
+          <View style={{ flex: 1}}>
+            <Text style={styles.info}> <Text style = {{fontWeight: "bold"}}>Username here </Text></Text>
+            <Text> </Text>
+            <Text style={styles.info}><Text style = {{fontWeight: "bold"}}> Email here </Text></Text>
+          </View>
+          <View style={{ flex: 1}}>
             <Image
               source={{
                 uri:
                   "https://www.himgs.com/imagenes/hello/social/hello-fb-logo.png"
               }}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 100, height: 100, alignSelf: "flex-end" }}
             />
           </View>
+          <Text> </Text>
+          <Text style={styles.info}>What food do you like?</Text>
+          <MultiSelect
+            style={{ flex: 1 }}
+            bgColor={"white"}
+            tintColor={"#666666"}
+            activityTintColor={"green"}
+            items={cuisines}
+            uniqueKey="id"
+            onSelectedItemsChange={this.onSelectedItemsChange1}
+            selectedItems={this.state.likedCuisines}
+          />
+          <Text> </Text>
+          <Text style={styles.info}>What food are you open to trying? </Text>
+          <MultiSelect
+            style={{ flex: 1 }}
+            bgColor={"white"}
+            tintColor={"#666666"}
+            activityTintColor={"green"}
+            items={cuisines}
+            uniqueKey="id"
+            onSelectedItemsChange={this.onSelectedItemsChange2}
+            selectedItems={this.state.openToTry}
+          />
+          <Text> </Text>
+          <Text style={styles.info}>Any dietary restrictions? </Text>
+          <MultiSelect
+            style={{ flex: 1 }}
+            bgColor={"white"}
+            tintColor={"#666666"}
+            activityTintColor={"green"}
+            items={restrictions}
+            uniqueKey="id"
+            onSelectedItemsChange={this.onSelectedItemsChange4}
+            selectedItems={this.state.restrictions}
+          />
+          <Text> </Text>
+          <Text style={styles.info}>
+            What price range are you looking for?{" "}
+          </Text>
+          <MultiSelect
+            style={{ flex: 1 }}
+            bgColor={"white"}
+            tintColor={"#666666"}
+            activityTintColor={"green"}
+            items={prices}
+            uniqueKey="id"
+            onSelectedItemsChange={this.onSelectedItemsChange3}
+            selectedItems={this.state.priceRange}
+          />
         </View>
-        <Text> </Text>
-        <Text style={styles.info}>What food do you like?</Text>
-        <MultiSelect
-          style={{ flex: 1 }}
-          bgColor={"white"}
-          tintColor={"#666666"}
-          activityTintColor={"green"}
-          items={cuisines}
-          uniqueKey="id"
-          onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.likedCuisines}
-        />
-        <Text> </Text>
-        <Text style={styles.info}>What food are you open to trying? </Text>
-        <MultiSelect
-          style={{ flex: 1 }}
-          bgColor={"white"}
-          tintColor={"#666666"}
-          activityTintColor={"green"}
-          items={cuisines}
-          uniqueKey="id"
-          onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.openToTry}
-        />
-        <Text> </Text>
-        <Text style={styles.info}>Any dietary restrictions? </Text>
-        <MultiSelect
-          style={{ flex: 1 }}
-          bgColor={"white"}
-          tintColor={"#666666"}
-          activityTintColor={"green"}
-          items={restrictions}
-          uniqueKey="id"
-          onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.restrictions}
-        />
-        <Text> </Text>
-        <Text style={styles.info}>What price range are you looking for? </Text>
-        <MultiSelect
-          style={{ flex: 1 }}
-          bgColor={"white"}
-          tintColor={"#666666"}
-          activityTintColor={"green"}
-          items={prices}
-          uniqueKey="id"
-          onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.prices}
-        />
-      </View>
       </ScrollView>
+      </ImageBackground>
     );
   }
 }
@@ -138,7 +152,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     margin: 5
@@ -213,7 +226,8 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   info: {
-    fontFamily: "Courier New",
-    fontSize: 20
+    // fontFamily: "Comic Sans",
+    fontSize: 20,
+    alignSelf: "flex-start"
   }
 });
