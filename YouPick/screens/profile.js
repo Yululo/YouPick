@@ -23,7 +23,10 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      likedCuisines: []
+      likedCuisines: [],
+      // openToTry: [],
+      // priceRange: [],
+      // restrictions: []
     };
   }
 
@@ -97,7 +100,7 @@ class Profile extends Component {
           items={cuisines}
           uniqueKey="id"
           onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.selectedItems}
+          selectedItems={this.state.openToTry}
         />
         <Text> </Text>
         <Text style={styles.info}>Any dietary restrictions? </Text>
@@ -109,7 +112,7 @@ class Profile extends Component {
           items={restrictions}
           uniqueKey="id"
           onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.selectedItems}
+          selectedItems={this.state.restrictions}
         />
         <Text> </Text>
         <Text style={styles.info}>What price range are you looking for? </Text>
@@ -121,7 +124,7 @@ class Profile extends Component {
           items={prices}
           uniqueKey="id"
           onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.selectedItems}
+          selectedItems={this.state.prices}
         />
       </View>
       </ScrollView>
