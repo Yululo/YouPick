@@ -27,5 +27,12 @@ module.exports = function(passport, hash) {
     }
   });
 
+  router.post("/logout", (req, res) => {
+    req.logout();
+    if (!req.user) {
+      res.json({ success: true });
+    } else res.json({ success: true });
+  });
+
   return router;
 };

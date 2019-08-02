@@ -17,7 +17,6 @@ import {
 import { SCREENS } from "../constants";
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -59,7 +58,7 @@ class Login extends Component {
       })
       .catch(err => {
         alert(err);
-        console.log('ERROR IN LOGIN FETCH',err)
+        console.log("ERROR IN LOGIN FETCH", err);
       });
   }
 
@@ -86,8 +85,8 @@ class Login extends Component {
     return (
       <ImageBackground
         source={require("../assets/youpick-bg.png")}
-        resizeMode='cover'
-        style={{ width: "100%", height: "100%", flex:1 }}
+        resizeMode="cover"
+        style={{ width: "100%", height: "100%", flex: 1 }}
       >
         <View style={styles.container}>
           <TextInput
