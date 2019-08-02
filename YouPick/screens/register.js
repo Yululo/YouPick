@@ -32,7 +32,7 @@ class Register extends Component {
       alert("Please enter username and password!");
       return;
     }
-    fetch("http://localhost:3000/db/register", {
+    fetch("http://192.168.1.59:3000/db/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
