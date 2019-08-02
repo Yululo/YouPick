@@ -11,7 +11,8 @@ import {
   ScrollView,
   RefreshControl,
   AsyncStorage,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native';
 import { SCREENS } from "../constants";
 
@@ -21,8 +22,7 @@ class Register extends Component {
     super(props);
     this.state = {
       username: "",
-      password: "",
-      email: ""
+      password: ""
     };
   }
   register() {
@@ -49,7 +49,7 @@ class Register extends Component {
         console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
-          this.props.navigation.navigate(SCREENS.LOGIN);
+          this.props.navigation.navigate(SCREENS.PROFILE);
         }
       })
       .catch(err => {
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
     height: 40,
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   users: {
     borderColor: "black",

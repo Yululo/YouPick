@@ -49,6 +49,21 @@ function Home(props) {
     </ImageBackground>
   );
 }
+Home.navigationOptions = props => ({
+  title: "Home",
+  headerRight: (
+    <Button
+      title="View Profile"
+      onPress={() => props.navigation.navigate(SCREENS.PROFILE)}
+    />
+  ),
+  headerLeft: (
+    <Button
+      title="Log Out"
+      onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
+    />
+  )
+});
 
 export default Home;
 
@@ -66,7 +81,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     textAlign: "center",
-    fontFamily: "Courier New"
+    fontFamily: "Courier New",
+    color: "white",
+    fontWeight: "bold",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 1,
+    textShadowColor: "#000"
   },
 
   headers: {

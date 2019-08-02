@@ -11,12 +11,15 @@ import {
   ScrollView,
   RefreshControl,
   AsyncStorage,
-  Image
+  Image,
+  ImageBackground
 } from "react-native";
 import { SCREENS } from "../constants";
 import MultiSelect from "react-native-multiple-select";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
 
-class Profile extends Component {
+class SetProfile extends Component {
   static navigationOptions = props => ({
     title: "Profile"
   });
@@ -26,7 +29,9 @@ class Profile extends Component {
       likedCuisines: [],
       openToTry: [],
       priceRange: [],
-      restrictions: []
+      restrictions: [],
+      username: "",
+      imageUri: ""
     };
   }
 
@@ -43,7 +48,68 @@ class Profile extends Component {
     this.setState({ restrictions: selectedItems });
   };
 
+  chooseImage = async () => {
+    let { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== "granted") {
+      alert("Permission Denied!");
+      return;
+    }
+    let picture = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All
+      // allowsEditing: true,
+      // aspect: [4, 3]
+    });
+    // console.log("picture", picture);
+    // console.log("picture uri", picture.uri);
+    if (picture.cancelled) {
+      return;
+    }
+    this.setState({ imageUri: picture.uri });
+  };
+
+  sendData = () => {
+    const fd = new FormData();
+    fd.append("photo", {
+      uri: this.imageUri,
+      type: "image/jpeg",
+      name: "profilePic.jpg"
+    });
+    fd.append("data", JSON.stringify(this.state));
+    fetch("http://192.168.1.59:3000/db/setProfile", {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json"
+      // },
+      // credentials: "include",
+      // redirect: "follow",
+      body: fd
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        /* do something with responseJson and go back to the Login view but
+         * make sure to check for responseJson.success! */
+        // console.log("json", responseJson);
+
+
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+    this.props.navigation.navigate(SCREENS.LOGIN)
+  }
+
   render() {
+    let isCompleted = true;
+    if (
+      this.state.likedCuisines.length === 0 ||
+      this.state.openToTry.length === 0 ||
+      this.state.priceRange.length === 0 ||
+      this.state.restrictions.length === 0 ||
+      !this.state.imageUri
+    ) {
+      isCompleted = false;
+    }
     let cuisines = [
       { id: 1, name: "Italian" },
       { id: 2, name: "Chinese" },
@@ -63,31 +129,58 @@ class Profile extends Component {
       { id: 5, name: "Gluten Free" }
     ];
 
+    AsyncStorage.getItem("user").then(result => {
+      if (result === null) {
+        return;
+      }
+      var parsedResult = JSON.parse(result);
+      this.setState({ username: parsedResult.username });
+    });
     return (
-      <ImageBackground
-        source={require("../assets/youpick-bg.png")}
-        resizeMode='cover'
-        style={{ width: "100%", height: "100%", flex:1 }}
-      >
-      <ScrollView>
-        <View style={{ display: "flex" }}>
+      // <ImageBackground
+      //   source={require("../assets/youpick-bg.png")}
+      //   resizeMode='cover'
+      //   style={{ width: "100%", height: "100%", flex:1 }}
+      // >
+      <ScrollView style={{ backgroundColor: "#a2444b" }}>
+        <View style={styles.container}>
           <View style={{ alignItems: "center" }}>
-            <Text style={{ fontSize: 30 }}>Complete your profile!</Text>
+            {isCompleted ? (
+              <Text></Text>
+            ) : (
+              <Text style={{ fontSize: 20, color: "white" }}>
+                ~Complete your profile!~
+              </Text>
+            )}
             <Text> </Text>
           </View>
-          <View style={{ flex: 1}}>
-            <Text style={styles.info}> <Text style = {{fontWeight: "bold"}}>Username here </Text></Text>
-            <Text> </Text>
-            <Text style={styles.info}><Text style = {{fontWeight: "bold"}}> Email here </Text></Text>
-          </View>
-          <View style={{ flex: 1}}>
-            <Image
-              source={{
-                uri:
-                  "https://www.himgs.com/imagenes/hello/social/hello-fb-logo.png"
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignContent: "center"
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+                fontWeight: "bold",
+                alignSelf: "center"
               }}
-              style={{ width: 100, height: 100, alignSelf: "flex-end" }}
-            />
+            >
+              Welcome, {this.state.username}{" "}
+            </Text>
+            <TouchableOpacity onPress={() => this.chooseImage()}>
+              <Image
+                source={{
+                  uri:
+                    this.state.imageUri ||
+                    "https://miro.medium.com/max/480/1*DSNfSDcOe33E2Aup1Sww2w.jpeg"
+                }}
+                style={{ width: 100, height: 100 }}
+              />
+            </TouchableOpacity>
           </View>
           <Text> </Text>
           <Text style={styles.info}>What food do you like?</Text>
@@ -100,6 +193,9 @@ class Profile extends Component {
             uniqueKey="id"
             onSelectedItemsChange={this.onSelectedItemsChange1}
             selectedItems={this.state.likedCuisines}
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
           />
           <Text> </Text>
           <Text style={styles.info}>What food are you open to trying? </Text>
@@ -112,6 +208,9 @@ class Profile extends Component {
             uniqueKey="id"
             onSelectedItemsChange={this.onSelectedItemsChange2}
             selectedItems={this.state.openToTry}
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
           />
           <Text> </Text>
           <Text style={styles.info}>Any dietary restrictions? </Text>
@@ -124,6 +223,9 @@ class Profile extends Component {
             uniqueKey="id"
             onSelectedItemsChange={this.onSelectedItemsChange4}
             selectedItems={this.state.restrictions}
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
           />
           <Text> </Text>
           <Text style={styles.info}>
@@ -138,23 +240,33 @@ class Profile extends Component {
             uniqueKey="id"
             onSelectedItemsChange={this.onSelectedItemsChange3}
             selectedItems={this.state.priceRange}
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
           />
+          {isCompleted ? (
+            <TouchableOpacity
+              style={styles.buttonGrey}
+              onPress={() => sendData()}
+            >
+              <Text style={styles.buttonText}> DONE </Text>
+            </TouchableOpacity>
+          ) : (
+            <Text></Text>
+          )}
         </View>
       </ScrollView>
-      </ImageBackground>
+      // </ImageBackground>
     );
   }
 }
 
-export default Profile;
+export default SetProfile;
 
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 5
+    backgroundColor: "#a2444b"
   },
 
   buttons: {
@@ -226,7 +338,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   info: {
-    // fontFamily: "Comic Sans",
+    color: "white",
     fontSize: 20,
     alignSelf: "flex-start"
   }
