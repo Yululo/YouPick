@@ -27,16 +27,16 @@ function Home(props) {
         <Text style={styles.title}>Go to your first restaurant!</Text>
         <TouchableOpacity
           onPress={() => props.navigation.navigate(SCREENS.PICK)}
-          style = {styles.buttonGrey}
+          style={styles.buttonGrey}
         >
-          <Text style = {styles.buttonText}>Pick</Text>
+          <Text style={styles.buttonText}>Pick</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
   );
 }
 
-async function logOut() {
+async function logOut(props) {
   const username = await AsyncStorage.getItem("user").then(result => {
     if (result === null) {
       return;
@@ -76,7 +76,7 @@ Home.navigationOptions = props => ({
       onPress={() => props.navigation.navigate(SCREENS.VIEWPROFILE)}
     />
   ),
-  headerLeft: <Button title="Log Out" onPress={() => logOut()} />
+  headerLeft: <Button title="Log Out" onPress={() => logOut(props)} />
 });
 export default Home;
 

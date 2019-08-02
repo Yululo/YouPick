@@ -88,8 +88,14 @@ class Pick extends React.Component {
       req5
     ]);
 
-    this.restaurants = [...data1, ...data2, ...data3, ...data4, ...data5];
-    console.log(this.restaurants);
+    this.restaurants = [
+      ...data1.restaurants,
+      ...data2.restaurants,
+      ...data3.restaurants,
+      ...data4.restaurants,
+      ...data5.restaurants
+    ];
+    console.log(this.restaurants.length);
 
     // console.log(data1.results_shown);
     // console.log(JSON.stringify(data1.restaurants[19], null, 2));

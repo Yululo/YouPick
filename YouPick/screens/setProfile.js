@@ -89,17 +89,24 @@ class SetProfile extends Component {
         /* do something with responseJson and go back to the Login view but
          * make sure to check for responseJson.success! */
         // console.log("json", responseJson);
-
-
       })
       .catch(err => {
-        console.log("set Profile", err)
+        console.log("set Profile", err);
         alert(err);
       });
-        this.props.navigation.navigate(SCREENS.LOGIN)
+    this.props.navigation.navigate(SCREENS.LOGIN);
+  };
+
+  componentDidMount() {
+    AsyncStorage.getItem("user").then(result => {
+      if (result === null) {
+        return;
+      }
+      var parsedResult = JSON.parse(result);
+      console.log("HERE", parsedResult);
+      this.setState({ username: parsedResult.username });
+    });
   }
-
-
 
   render() {
     let isCompleted = true;
@@ -131,14 +138,6 @@ class SetProfile extends Component {
       { id: 5, name: "Gluten Free" }
     ];
 
-    AsyncStorage.getItem("user").then(result => {
-      if (result === null) {
-        return;
-      }
-      var parsedResult = JSON.parse(result);
-      console.log(parsedResult)
-      this.setState({ username: parsedResult.username });
-    });
     return (
       // <ImageBackground
       //   source={require("../assets/youpick-bg.png")}
@@ -149,7 +148,7 @@ class SetProfile extends Component {
         <View style={styles.container}>
           <View style={{ alignItems: "center" }}>
             {isCompleted ? (
-              <Text></Text>
+              <Text />
             ) : (
               <Text style={{ fontSize: 20, color: "white" }}>
                 ~Complete your profile!~
@@ -255,7 +254,7 @@ class SetProfile extends Component {
               <Text style={styles.buttonText}> DONE </Text>
             </TouchableOpacity>
           ) : (
-            <Text></Text>
+            <Text />
           )}
         </View>
       </ScrollView>
