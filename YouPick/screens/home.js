@@ -37,24 +37,21 @@ function Home(props) {
 }
 
 async function logOut(props) {
-  const username = await AsyncStorage.getItem("user").then(result => {
-    if (result === null) {
-      return;
-    }
-    var parsedResult = JSON.parse(result);
-    return parsedResult.username;
-  });
-  AsyncStorage.setItem("user", "");
+  // const username = await AsyncStorage.getItem("user").then(result => {
+  //   if (result === null) {
+  //     return;
+  //   }
+  //   var parsedResult = JSON.parse(result);
+  //   return parsedResult.username;
+  // });
+
   fetch("http://192.168.1.59:3000/db/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     credentials: "include",
-    redirect: "follow",
-    body: JSON.stringify({
-      username: username
-    })
+    redirect: "follow"
   })
     .then(response => response.json())
     .then(responseJson => {
@@ -64,8 +61,10 @@ async function logOut(props) {
       }
     })
     .catch(err => {
+      console.log("from fetch", err);
       alert(err);
     });
+  AsyncStorage.setItem("user", "");
 }
 
 Home.navigationOptions = props => ({
