@@ -13,7 +13,7 @@ const Navigator = createStackNavigator({
   Register: Register,
   Profile: Profile
 },
-{ initialRouteName: SCREENS.LOGIN});
+{ initialRouteName: SCREENS.PROFILE});
 
 
 
