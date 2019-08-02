@@ -11,7 +11,7 @@ router.post("/register", (req, res) => {
   newUser
     .save()
     .then(response => {
-      console.log("saveUser", response);
+      res.json({ success: true });
     })
     .catch(error => {
       console.log("saveUser", error);
