@@ -49,7 +49,7 @@ class Register extends Component {
         console.log("json", responseJson);
 
         if (responseJson.success === true && responseJson.user) {
-          this.props.navigation.navigate(SCREENS.LOGIN);
+          this.props.navigation.navigate(SCREENS.PROFILE);
         }
       })
       .catch(err => {

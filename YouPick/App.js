@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   createAppContainer
 } from "react-navigation";
-import { Login, Register, Home, Profile } from "./screens";
+import { Login, Register, Home, SetProfile } from "./screens";
 import { SCREENS } from "./constants";
 
 const AuthNavigator = createStackNavigator(
@@ -15,7 +15,7 @@ const AuthNavigator = createStackNavigator(
 );
 const Navigator = createStackNavigator({
   Home: Home,
-  Profile: Profile
+  SetProfile: SetProfile
 },
 { initialRouteName: SCREENS.HOME});
 
