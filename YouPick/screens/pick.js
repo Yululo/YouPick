@@ -20,8 +20,6 @@ import * as Permissions from "expo-permissions";
 import zomato from "zomato-api";
 var client = zomato({ userKey: "edf93ee64341e71e145d65045b494dde" });
 
-// search the restaurant based on the given city
-
 class Pick extends React.Component {
   constructor(props) {
     super(props);
@@ -53,9 +51,9 @@ class Pick extends React.Component {
     // console.log("My location: ", this.state.region);
   }
 
+  // search the restaurant based on the given city
   async search() {
     await this.currentLocation();
-
     Promise.all([
       client.search({
         query: "koreatown",
