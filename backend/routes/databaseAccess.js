@@ -3,6 +3,7 @@ const router = express.Router();
 const { User } = require("../models");
 
 router.post("/register", (req, res) => {
+  console.log(req.body);
   const newUser = new User({
     username: req.body.username,
     password: req.body.password
