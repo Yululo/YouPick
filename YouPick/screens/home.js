@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -13,38 +13,67 @@ import {
   AsyncStorage,
   Image,
   ImageBackground
-} from 'react-native';
+} from "react-native";
 import { SCREENS } from "../constants";
 
-function Home(props){
+function Home(props) {
 
-    return(
-      <ImageBackground
-        source={require("../assets/youpick-bg.png")}
-        resizeMode='cover'
-        style={{ width: "100%", height: "100%", flex:1 }}
-      >
-        <View style = {styles.container}>
-          <Text style = {styles.title}>Go to your first restaurant!</Text>
-        </View>
-      </ImageBackground>
-    )
+  return (
+    <ImageBackground
+      source={require("../assets/youpick-bg.png")}
+      resizeMode="cover"
+      style={{ width: "100%", height: "100%", flex: 1 }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Go to your first restaurant!</Text>
+      </View>
+    </ImageBackground>
+  );
 }
+
+async function logOut() {
+  const username = await AsyncStorage.getItem("user").then(result => {
+    if (result === null) {
+      return;
+    }
+    var parsedResult = JSON.parse(result);
+    return parsedResult.username;
+  });
+  AsyncStorage.setItem("user", "");
+  fetch("http://192.168.1.59:3000/db/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    redirect: "follow",
+    body: JSON.stringify({
+      username: username
+    })
+  })
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log(responseJson)
+      if (responseJson.success === true) {
+        props.navigation.navigate(SCREENS.LOGIN);
+      }
+    })
+    .catch(err => {
+      alert(err);
+    });
+}
+
 Home.navigationOptions = props => ({
   title: "Home",
   headerRight: (
     <Button
       title="View Profile"
-      onPress={() => props.navigation.navigate(SCREENS.PROFILE)}
+      onPress={() => props.navigation.navigate(SCREENS.VIEWPROFILE)}
     />
   ),
-  headerLeft: (
-    <Button
-      title="Log Out"
-      onPress={() => props.navigation.navigate(SCREENS.LOGIN)}
-    />
-  )
-})
+  headerLeft: (<Button title="Log Out" onPress={() => logOut()} />)
+});
+
 
 export default Home;
 
@@ -67,7 +96,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 1,
-    textShadowColor: '#000',
+    textShadowColor: "#000"
   },
 
   headers: {

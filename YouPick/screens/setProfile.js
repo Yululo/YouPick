@@ -21,7 +21,7 @@ import * as ImagePicker from "expo-image-picker";
 
 class SetProfile extends Component {
   static navigationOptions = props => ({
-    title: "Profile"
+    title: "Create Profile"
   });
   constructor(props) {
     super(props);
@@ -95,9 +95,10 @@ class SetProfile extends Component {
       .catch(err => {
         alert(err);
       });
+        this.props.navigation.navigate(SCREENS.LOGIN)
   }
-    this.props.navigation.navigate(SCREENS.LOGIN)
-  }
+
+
 
   render() {
     let isCompleted = true;
